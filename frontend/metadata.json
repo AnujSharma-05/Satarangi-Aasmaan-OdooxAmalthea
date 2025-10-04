@@ -1,0 +1,5 @@
+{
+  "name": "Odoo Expense Management",
+  "description": "An intuitive expense management application that simplifies expense submission, approval workflows, and user management for companies. It features role-based dashboards for employees, managers, and administrators.",
+  "requestFramePermissions": []
+}
