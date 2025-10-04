@@ -1,16 +1,28 @@
 # File: backend/main.py
 
+
 from fastapi import FastAPI
-from app.api.v1.endpoints import auth, expenses, manager, admin
+from fastapi.middleware.cors import CORSMiddleware
+from app.api.v1.endpoints import auth, expenses, manager, admin, utils
+
 
 app = FastAPI(title="Expense Management API")
+
+# Add CORS middleware to allow frontend requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # You can restrict this to your frontend origin if needed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Include routers with prefixes and tags
 app.include_router(auth.router, prefix="/api/v1", tags=["Authentication"])
 app.include_router(expenses.router, prefix="/api/v1/expenses", tags=["Expenses (Employee)"])
 app.include_router(manager.router, prefix="/api/v1/manager", tags=["Manager"])
 app.include_router(admin.router, prefix="/api/v1/admin", tags=["Admin"])
-
+app.include_router(utils.router)
 
 @app.get("/")
 def read_root():
