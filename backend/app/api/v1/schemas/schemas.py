@@ -55,3 +55,13 @@ class Expense(ExpenseBase):
 
     class Config:
         orm_mode = True
+
+
+# --- Token / Auth Schemas ---
+class TokenRequest(BaseModel):
+    username: EmailStr
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
