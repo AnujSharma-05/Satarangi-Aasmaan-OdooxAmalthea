@@ -44,3 +44,15 @@ def update_approval_status(
         raise HTTPException(status_code=404, detail="Expense not found")
     
     return {"message": f"Expense status updated to {new_status.value}"}
+
+
+@router.get("/team-expenses", response_model=List[schemas.Expense])
+def get_all_team_expenses(
+    db: Session = Depends(session.get_db),
+    current_user: models.User = Depends(dependencies.get_current_user)
+):
+    """
+    Get a list of all expenses submitted by the employees
+    who report to the current manager.
+    """
+    return crud_expense.get_expenses_by_subordinates(db, manager_id=current_user.id)

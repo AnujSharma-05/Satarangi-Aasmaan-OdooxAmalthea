@@ -59,3 +59,19 @@ def update_expense_status(db: Session, expense_id: uuid.UUID, status: models.Exp
         db.commit()
         db.refresh(db_expense)
     return db_expense
+
+
+def get_expenses_by_subordinates(db: Session, manager_id: uuid.UUID):
+    """
+    Retrieves all expenses submitted by employees who report to a specific manager,
+    regardless of the expense status.
+    """
+    # Find all employees managed by this manager
+    subordinate_ids = db.query(models.User.id).filter(models.User.manager_id == manager_id)
+
+    return (
+        db.query(models.Expense)
+        .filter(models.Expense.employee_id.in_(subordinate_ids))
+        .order_by(models.Expense.created_at.desc())
+        .all()
+    )
