@@ -1,0 +1,15 @@
+code __init__.py
+code app/__init__.py
+code app/api/__init__.py
+code app/api/v1/__init__.py
+code app/api/v1/endpoints/__init__.py
+code app/api/v1/schemas/__init__.py
+code app/core/__init__.py
+code app/crud/__init__.py
+code app/db/__init__.py
+code app/models/__init__.py
+code app/services/__init__.py
+code tests/__init__.py
+
+code main.py
+code requirements.txt
